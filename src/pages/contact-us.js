@@ -1,5 +1,5 @@
 import React from 'react';
-import {graphql} from 'gatsby';
+import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import styled from 'styled-components';
 import RichText from '../components/richText';
@@ -69,43 +69,48 @@ const ContactUs = (props) => {
     return (
         <Layout>
             <ContentWrapper>
-            <RichText render={props.data.prismic.allContact_pages.edges[0].node.form_title} />
-            <RichText render={props.data.prismic.allContact_pages.edges[0].node.form_description} />
+                <RichText render={props.data.prismic.allContact_pages.edges[0].node.form_title} />
+                <RichText render={props.data.prismic.allContact_pages.edges[0].node.form_description} />
 
-            <Form 
-                name="contact-us"
-                method="POST"
-                data-netlify="true"
-                action="/contact-success">
+                <Form
+                    name="contact-us"
+                    method="POST"
+                    data-netlify-recaptcha="true"
+                    data-netlify="true"
+                    action="/contact-success">
                     <input type="hidden" name="form-name" value="contact-us" />
-                {props.data.prismic.allContact_pages.edges[0].node.form_fields.map((field, i) => {
-                    if(field.field_type === 'textarea'){
-                        return (
-                            <div key={i}>
-                                <textarea 
-                                    name={field.field_name}
-                                    required={field.required === 'Yes'}
-                                    placeholder={field.field_name} />
-                            </div>
-                        );
-                    }else{
-                        return (
-                            <div key={i}>
-                                <input 
-                                    name={field.field_name}
-                                    placeholder={field.field_name}
-                                    required={field.required === 'Yes'}
-                                    type={field.field_type} />
-                            </div>
-                        )
-                    }
-                })}
-                <Button type="submit">
-                    Submit
+                    {props.data.prismic.allContact_pages.edges[0].node.form_fields.map((field, i) => {
+                        if (field.field_type === 'textarea') {
+                            return (
+                                <div key={i}>
+                                    <textarea
+                                        name={field.field_name}
+                                        required={field.required === 'Yes'}
+                                        placeholder={field.field_name} />
+                                </div>
+                            );
+                        } else {
+                            return (
+                                <div key={i}>
+                                    <input
+                                        name={field.field_name}
+                                        placeholder={field.field_name}
+                                        required={field.required === 'Yes'}
+                                        type={field.field_type} />
+                                </div>
+                            )
+                        }
+                    })}
+
+                    <div data-netlify-recaptcha="true"></div>
+
+
+                    <Button type="submit">
+                        Submit
                 </Button>
-            </Form>
+                </Form>
             </ContentWrapper>
-            
+
         </Layout>
     )
 };
