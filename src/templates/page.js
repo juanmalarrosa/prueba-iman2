@@ -59,9 +59,17 @@ const PageWrapper = styled.section`
 `
 
 const Page = props => {
-  const pageTitle = props.data.prismic.allPages.edges[0].node.page_title
-  const content = props.data.prismic.allPages.edges[0].node.content
 
+  const prismicContent = props.data.prismic.allPages.edges[0]
+
+  if (!prismicContent) return null
+
+
+  const pageTitle = prismicContent.node.page_title
+  const content = prismicContent.node.content
+
+
+  
   return (
     <Layout>
       <PageWrapper>
